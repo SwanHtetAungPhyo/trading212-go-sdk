@@ -15,7 +15,7 @@ A comprehensive Go SDK for the Trading 212 Public API, supporting both demo (pap
 ## Installation
 
 ```bash
-go get github.com/yourusername/trading212-go-sdk
+go get github.com/SwanHtetAungPhyo/trading212-go-sdk
 ```
 
 ## Quick Start
@@ -28,7 +28,7 @@ import (
     "fmt"
     "log"
     
-    trading212 "trading212-go-sdk"
+    trading212 "github.com/SwanHtetAungPhyo/trading212-go-sdk"
 )
 
 func main() {

@@ -8,7 +8,7 @@ import (
 	"log"
 	"os"
 
-	trading212 "trading212-go-sdk"
+	trading212 "github.com/SwanHtetAungPhyo/trading212-go-sdk"
 )
 
 func main() {
