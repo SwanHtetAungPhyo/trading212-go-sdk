@@ -12,7 +12,7 @@ type GetPositionsOptions struct {
 
 // GetPositions retrieves all open positions
 func (c *Client) GetPositions(ctx context.Context, opts *GetPositionsOptions) ([]Position, error) {
-	path := "/api/v0/equity/positions"
+	path := "/api/v0/equity/portfolio"
 	
 	if opts != nil {
 		params := map[string]interface{}{

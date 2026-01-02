@@ -33,14 +33,10 @@ func main() {
 
 	fmt.Printf("Account ID: %d\n", summary.ID)
 	fmt.Printf("Currency: %s\n", summary.Currency)
-	fmt.Printf("Available Cash: %.2f\n", summary.Cash.AvailableToTrade)
-	fmt.Printf("Cash in Pies: %.2f\n", summary.Cash.InPies)
-	fmt.Printf("Reserved for Orders: %.2f\n", summary.Cash.ReservedForOrders)
-	fmt.Printf("Total Account Value: %.2f\n", summary.TotalValue)
-	fmt.Printf("Current Investment Value: %.2f\n", summary.Investments.CurrentValue)
-	fmt.Printf("Total Cost: %.2f\n", summary.Investments.TotalCost)
-	fmt.Printf("Unrealized P&L: %.2f\n", summary.Investments.UnrealizedProfitLoss)
-	fmt.Printf("Realized P&L: %.2f\n", summary.Investments.RealizedProfitLoss)
+	fmt.Printf("Free Cash: %.2f\n", summary.Cash.Free)
+	fmt.Printf("Invested: %.2f\n", summary.Cash.Invested)
+	fmt.Printf("Result: %.2f\n", summary.Cash.Result)
+	fmt.Printf("Total: %.2f\n", summary.Cash.Total)
 
 	// Get all positions
 	fmt.Println("\n=== Open Positions ===")
@@ -53,16 +49,16 @@ func main() {
 		fmt.Println("No open positions")
 	} else {
 		for _, pos := range positions {
-			fmt.Printf("Ticker: %s\n", pos.Instrument.Ticker)
-			fmt.Printf("  Name: %s\n", pos.Instrument.Name)
+			fmt.Printf("Ticker: %s\n", pos.Ticker)
 			fmt.Printf("  Quantity: %.4f\n", pos.Quantity)
-			fmt.Printf("  Current Price: %.2f %s\n", pos.CurrentPrice, pos.Instrument.Currency)
-			fmt.Printf("  Average Price Paid: %.2f %s\n", pos.AveragePricePaid, pos.Instrument.Currency)
-			fmt.Printf("  Current Value: %.2f %s\n", pos.WalletImpact.CurrentValue, pos.WalletImpact.Currency)
-			fmt.Printf("  Total Cost: %.2f %s\n", pos.WalletImpact.TotalCost, pos.WalletImpact.Currency)
-			fmt.Printf("  Unrealized P&L: %.2f %s\n", pos.WalletImpact.UnrealizedProfitLoss, pos.WalletImpact.Currency)
-			fmt.Printf("  Available for Trading: %.4f\n", pos.QuantityAvailableForTrading)
-			fmt.Printf("  In Pies: %.4f\n", pos.QuantityInPies)
+			fmt.Printf("  Current Price: %.2f\n", pos.CurrentPrice)
+			fmt.Printf("  Average Price: %.2f\n", pos.AveragePrice)
+			fmt.Printf("  P&L: %.2f\n", pos.Ppl)
+			fmt.Printf("  FX P&L: %.2f\n", pos.FxPpl)
+			fmt.Printf("  Pie Quantity: %.4f\n", pos.PieQuantity)
+			fmt.Printf("  Max Buy: %.4f\n", pos.MaxBuy)
+			fmt.Printf("  Max Sell: %.4f\n", pos.MaxSell)
+			fmt.Printf("  Initial Fill Date: %s\n", pos.InitialFillDate.Format("2006-01-02 15:04:05"))
 			fmt.Println()
 		}
 	}

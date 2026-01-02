@@ -2,28 +2,24 @@ package trading212
 
 import "time"
 
-// AccountSummary represents account summary information
+// AccountInfo represents account metadata information
+type AccountInfo struct {
+	Currency string `json:"currencyCode"`
+	ID       int64  `json:"id"`
+}
+
+// AccountCash represents account cash balance information
+type AccountCash struct {
+	Free     float64 `json:"free"`
+	Invested float64 `json:"invested"`
+	Result   float64 `json:"result"`
+	Total    float64 `json:"total"`
+}
+
+// AccountSummary represents combined account information (custom struct for convenience)
 type AccountSummary struct {
-	Cash        Cash        `json:"cash"`
-	Currency    string      `json:"currency"`
-	ID          int64       `json:"id"`
-	Investments Investments `json:"investments"`
-	TotalValue  float64     `json:"totalValue"`
-}
-
-// Cash represents cash information
-type Cash struct {
-	AvailableToTrade   float64 `json:"availableToTrade"`
-	InPies             float64 `json:"inPies"`
-	ReservedForOrders  float64 `json:"reservedForOrders"`
-}
-
-// Investments represents investment information
-type Investments struct {
-	CurrentValue         float64 `json:"currentValue"`
-	RealizedProfitLoss   float64 `json:"realizedProfitLoss"`
-	TotalCost           float64 `json:"totalCost"`
-	UnrealizedProfitLoss float64 `json:"unrealizedProfitLoss"`
+	AccountInfo
+	Cash AccountCash `json:"cash"`
 }
 
 // Order represents an order
@@ -109,14 +105,17 @@ type Instrument struct {
 
 // Position represents a position
 type Position struct {
-	AveragePricePaid             float64               `json:"averagePricePaid"`
-	CreatedAt                    time.Time             `json:"createdAt"`
-	CurrentPrice                 float64               `json:"currentPrice"`
-	Instrument                   Instrument            `json:"instrument"`
-	Quantity                     float64               `json:"quantity"`
-	QuantityAvailableForTrading  float64               `json:"quantityAvailableForTrading"`
-	QuantityInPies               float64               `json:"quantityInPies"`
-	WalletImpact                 PositionWalletImpact  `json:"walletImpact"`
+	AveragePrice     float64   `json:"averagePrice"`
+	CurrentPrice     float64   `json:"currentPrice"`
+	Frontend         string    `json:"frontend"`
+	FxPpl            float64   `json:"fxPpl"`
+	InitialFillDate  time.Time `json:"initialFillDate"`
+	MaxBuy           float64   `json:"maxBuy"`
+	MaxSell          float64   `json:"maxSell"`
+	PieQuantity      float64   `json:"pieQuantity"`
+	Ppl              float64   `json:"ppl"`
+	Quantity         float64   `json:"quantity"`
+	Ticker           string    `json:"ticker"`
 }
 
 // PositionWalletImpact represents position wallet impact

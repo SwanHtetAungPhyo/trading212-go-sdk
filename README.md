@@ -18,6 +18,25 @@ A comprehensive Go SDK for the Trading 212 Public API, supporting both demo (pap
 go get github.com/SwanHtetAungPhyo/trading212-go-sdk
 ```
 
+## Getting Started
+
+### 1. Get API Keys
+First, generate your API keys from the Trading 212 app. Follow the instructions in the [Trading 212 Help Centre](https://helpcentre.trading212.com/hc/en-us/articles/14584770928157-Trading-212-API-key).
+
+### 2. Test Your Credentials
+Use the included test script to verify your API credentials:
+
+```bash
+export TRADING212_API_KEY=your_api_key
+export TRADING212_API_SECRET=your_api_secret
+go run examples/test_auth.go
+```
+
+This will test all basic API endpoints and confirm your authentication is working.
+
+### 3. Start Building
+Once authentication is confirmed, you can start using the SDK in your applications.
+
 ## Quick Start
 
 ```go
@@ -49,15 +68,17 @@ func main() {
     
     fmt.Printf("Account ID: %d\n", summary.ID)
     fmt.Printf("Currency: %s\n", summary.Currency)
-    fmt.Printf("Available Cash: %.2f\n", summary.Cash.AvailableToTrade)
-    fmt.Printf("Total Value: %.2f\n", summary.TotalValue)
+    fmt.Printf("Free Cash: %.2f\n", summary.Cash.Free)
+    fmt.Printf("Total: %.2f\n", summary.Cash.Total)
 }
 ```
 
 ## API Coverage
 
 ### Account Management
-- `GetAccountSummary()` - Get account summary with cash and investment details
+- `GetAccountInfo()` - Get account metadata (ID, currency)
+- `GetAccountCash()` - Get account cash balances
+- `GetAccountSummary()` - Get combined account information (convenience method)
 
 ### Orders
 - `GetOrders()` - Get all pending orders
@@ -127,8 +148,8 @@ opts := &trading212.GetPositionsOptions{
 positions, err := client.GetPositions(ctx, opts)
 
 for _, pos := range positions {
-    fmt.Printf("Ticker: %s, Quantity: %.2f, Current Price: %.2f\n",
-        pos.Instrument.Ticker, pos.Quantity, pos.CurrentPrice)
+    fmt.Printf("Ticker: %s, Quantity: %.2f, Current Price: %.2f, P&L: %.2f\n",
+        pos.Ticker, pos.Quantity, pos.CurrentPrice, pos.Ppl)
 }
 ```
 
